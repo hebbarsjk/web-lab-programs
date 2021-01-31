@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<div align="center">
+			<h1></h1>
+		</div>
+	</body>
+	<script>
+		let head = document.querySelector('h1');
+		let font = 5;
+		let flag = 0;
+
+		setInterval(function () {
+			if (flag == 0) inc();
+			else dec();
+		}, 100);
+
+		function inc() {
+			font++;
+			head.style.fontSize = font + 'pt';
+			head.style.color = 'red';
+			head.textContent = 'Text-Growing';
+			if (font == 50) flag = 1;
+		}
+
+		function dec() {
+			font--;
+			head.style.fontSize = font + 'pt';
+			head.style.color = 'blue';
+			head.textContent = 'Text-Shrinking';
+			if (font == 5) flag = 0;
+		}
+	</script>
+</html>

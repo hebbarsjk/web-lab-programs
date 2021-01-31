@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<script>
+			let str = prompt('Enter The Value', '');
+			if (isNaN(str)) {
+				// string
+				str = str.toUpperCase();
+				var i = 0;
+				for (i = 0; i < str.length; i++) {
+					let ch = str.charAt(i);
+					if (ch == 'A' || ch == 'E' || ch == 'I' || ch == 'O' || ch == 'U')
+						break;
+				}
+				if (i >= 0 && i < str.length)
+					alert('Vowel found at position ' + (i + 1));
+				else alert('Vowel Not found');
+			} else {
+				//number
+				let num = parseInt(str);
+				let rem = 0;
+				let rev = 0;
+				while (num != 0) {
+					rem = num % 10;
+					num = parseInt(num / 10);
+					rev = rev * 10 + rem;
+				}
+				alert('Reversed Number is : ' + rev);
+			}
+		</script>
+	</body>
+</html>
