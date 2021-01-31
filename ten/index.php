@@ -75,28 +75,24 @@ $result = $con->query($sql);
             }
         }
     }
-
-
-
    
-        for($i=0;$i < count($a); $i++)
+    for($i=0;$i < count($a); $i++)
+    {
+        $result = $con->query($sql);
+        while($row = $result->fetch_assoc())
         {
-            $result = $con->query($sql);
-            while($row = $result->fetch_assoc())
+            if($a[$i] == $row['usn'])
             {
-                if($a[$i] == $row['usn'])
-                {
-                   echo "<tr>
-                <td>".$row['usn']."</td>
-                <td>".$row['name']."</td>
-                <td>".$row['branch']."</td>
-            </tr>"; 
-                }
+                echo "<tr>
+            <td>".$row['usn']."</td>
+            <td>".$row['name']."</td>
+            <td>".$row['branch']."</td>
+        </tr>"; 
             }
         }
+    }
 
     ?>
-
     </table>
 </body>
 </html>
