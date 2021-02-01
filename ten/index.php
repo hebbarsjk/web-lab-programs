@@ -24,75 +24,76 @@ $result = $con->query($sql);
 </head>
 <body>
     <table border="2">
-    <h4>Before Sorting</h4>
-    <tr>
-    <th>USN</th>
-    <th>Name</th>
-    <th>Branch</th>
-    </tr>
-   <?php
-
-   $a = [];
-    if($result->num_rows > 0)
-    {
-        while($row = $result->fetch_assoc())
-        {
-            echo "<tr>
-                <td>".$row['usn']."</td>
-                <td>".$row['name']."</td>
-                <td>".$row['branch']."</td>
-            </tr>";
-            $a[] = $row['usn'];
-        }
-        //print_r($a);
-    }
-    else
-    {
-        echo "<tr>No Data</tr>";
-    }
-
-    ?>
-
-    </table>
-
-    <table border="2">
-    <h4>After Sorting</h4>
-    <tr>
-    <th>USN</th>
-    <th>Name</th>
-    <th>Branch</th>
-    </tr>
+        <h4>Before Sorting</h4>
+        <tr>
+        <th>USN</th>
+        <th>Name</th>
+        <th>Branch</th>
+        </tr>
     <?php
-    for($i=0;$i < count($a) - 1; $i++)
-    {
-        for($j=0;$j < count($a) - $i - 1;$j++)
+
+    $a = [];
+    $b = [];
+    $c = [];
+        if($result->num_rows > 0)
         {
-            if($a[$j] > $a[$j + 1])
-            {
-                $temp = $a[$j];
-                $a[$j] = $a[$j+1];
-                $a[$j+1] = $temp;
-            }
-        }
-    }
-   
-    for($i=0;$i < count($a); $i++)
-    {
-        $result = $con->query($sql);
-        while($row = $result->fetch_assoc())
-        {
-            if($a[$i] == $row['usn'])
+            while($row = $result->fetch_assoc())
             {
                 echo "<tr>
-            <td>".$row['usn']."</td>
-            <td>".$row['name']."</td>
-            <td>".$row['branch']."</td>
-        </tr>"; 
+                    <td>".$row['usn']."</td>
+                    <td>".$row['name']."</td>
+                    <td>".$row['branch']."</td>
+                </tr>";
+                $a[] = $row['usn'];
+                $b[] = $row['name'];
+                $c[] = $row['branch'];
             }
+            //print_r($a);
         }
-    }
+        else
+        {
+            echo "<tr>No Data</tr>";
+        }
 
-    ?>
+        ?>
+
+        </table>
+
+        <table border="2">
+        <h4>After Sorting</h4>
+        <tr>
+        <th>USN</th>
+        <th>Name</th>
+        <th>Branch</th>
+        </tr>
+        <?php
+
+        for($i=0;$i < count($a) - 1; $i++)
+        {
+            $minIndex = $i;
+            for($j=$i+1; $j < count($a); $j++)
+            {
+                if($a[$j] < $a[$minIndex])
+                    $minIndex = $j;
+            }
+            swap($a,$i,$minIndex);
+            swap($b,$i,$minIndex);
+            swap($c,$i,$minIndex);
+        }
+
+        function swap(&$a,$i,$j)
+        {
+            $temp = $a[$i];
+            $a[$i] = $a[$j];
+            $a[$j] = $temp;
+        }
+    
+        for($i=0;$i < count($a); $i++)
+        {
+                echo "<tr><td>".$a[$i]."</td><td>".$b[$i]."</td><td>".$c[$i]."</td></tr>";    
+        }
+
+        ?>
     </table>
 </body>
 </html>
